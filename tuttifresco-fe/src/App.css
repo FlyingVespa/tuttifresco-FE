@@ -1,38 +1,53 @@
-.App {
-  text-align: center;
+.jumbotron {
+  height: 40vh;
+  overflow: hidden;
+  z-index: -1;
+  position: relative;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.header {
+  /* margin: -10vh; */
+  z-index: 2;
+  /* border: 10px solid blue; */
+  background-color: white;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.icon.star {
+  position: absolute;
+  top: 37vh;
+  right: 48vh;
+  cursor: pointer;
+  font-size: 50px;
+  opacity: 0.05;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+#open_status {
+  border: solid 2px rgb(99, 150, 23);
+  width: fit-content;
+  padding: 5px;
+  border-radius: 3rem;
 }
 
-.App-link {
-  color: #61dafb;
+#open_status span {
+  font-size: 1.5rem;
+  color: rgb(108, 177, 85);
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.main {
+  margin-top: -10vh;
+  width: 55vw !important;
+}
+
+.featured img {
+  height: 9rem;
+}
+
+.stocklist img {
+  height: 50px;
+}
+
+.Logo {
+  margin-top: -10vh;
 }
