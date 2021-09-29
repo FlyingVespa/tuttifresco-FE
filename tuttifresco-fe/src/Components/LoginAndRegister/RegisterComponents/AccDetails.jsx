@@ -39,11 +39,6 @@ const AccDetails = () => {
     username: null,
     password: null,
   });
-
-  const handleBasicDetailsChange = (e) => {
-    setBasicDetails({ ...basic, [e.target.name]: e.target.value });
-  };
-
   const [values, setValues] = useState({
     amount: "",
     password: "",
@@ -52,7 +47,14 @@ const AccDetails = () => {
     showPassword: false,
   });
 
-  const handleChange = (prop) => (event) => {
+  const handleChange = (e) => {
+    setBasicDetails({ ...basic, [e.target.name]: e.target.value });
+  };
+
+  const inputChange = (e, newInputValue) => {
+    setBasicDetails({ ...basic, [e.target.name]: newInputValue });
+  };
+  const handlePasswordChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
 
@@ -79,7 +81,7 @@ const AccDetails = () => {
         placeholder="Enter Your email used for login"
         label="Account Email"
         value={basic.accemail}
-        onChange={handleBasicDetailsChange}
+        onChange={handleChange}
         fullWidth
         helperText="*Required - not shared with public"
       />
@@ -90,7 +92,7 @@ const AccDetails = () => {
         placeholder="Enter Your preffered"
         label="Username"
         value={basic.username}
-        onChange={handleBasicDetailsChange}
+        onChange={handleChange}
         fullWidth
         helperText="*Required - not shared with public"
       />
@@ -101,7 +103,7 @@ const AccDetails = () => {
           id="standard-adornment-password"
           type={values.showPassword ? "text" : "password"}
           value={values.password}
-          onChange={handleChange("password")}
+          onChange={handlePasswordChange("password")}
           endAdornment={
             <InputAdornment position="end">
               <IconButton
@@ -123,7 +125,7 @@ const AccDetails = () => {
         placeholder="Business Name"
         label="Business Name"
         value={basic.name}
-        onChange={handleBasicDetailsChange}
+        onChange={handleChange}
         fullWidth
         helperText="*Required - not shared with public"
       />
@@ -133,10 +135,8 @@ const AccDetails = () => {
             name="category"
             className="my-3"
             value={basic.category}
-            onInputChange={(event, newInputValue) => {
-              setBasicDetails({ ...basic, category: newInputValue });
-            }}
-            id="combo-box-demo"
+            onInputChange={inputChange}
+            id="category"
             options={category}
             renderInput={(params) => (
               <TextField
@@ -145,7 +145,7 @@ const AccDetails = () => {
                 label="Type of business"
                 value={basic.category}
                 variant="standard"
-                onChange={handleBasicDetailsChange}
+                onChange={handleChange}
               />
             )}
           />
@@ -155,10 +155,8 @@ const AccDetails = () => {
             name="delivery"
             className="my-3"
             value={basic.delivery}
-            onInputChange={(event, newInputValue) => {
-              setBasicDetails({ ...basic, delivery: newInputValue });
-            }}
-            id="combo-box-demo"
+            onInputChange={inputChange}
+            id="delivery"
             options={deliveryDistance}
             renderInput={(params) => (
               <TextField
@@ -167,7 +165,7 @@ const AccDetails = () => {
                 label="Delivery Service"
                 value={basic.delivery}
                 variant="standard"
-                onChange={handleBasicDetailsChange}
+                onChange={handleChange}
               />
             )}
           />

@@ -45,72 +45,81 @@ const cities = [
   "Constania",
 ];
 
-function LocationDetails() {
-  const [location, setLocation] = useState({
-    country: null,
-    city: null,
-    region: null,
-    address: null,
-    serviceArea: null,
-  });
-  const [country, setCountry] = React.useState("");
-  const [city, setCity] = React.useState("");
-  const [address, setAddress] = React.useState("");
-  const [operationCity, setOperationCity] = React.useState([]);
-  const [region, setRegion] = React.useState([]);
-
-  const handleCitySelect = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setOperationCity(
-      // On autofill we get a the stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
-  };
+const LocationDetails = () => {
   const countries = countrylist;
+  const [location, setLocation] = useState({
+    country: "",
+    city: "",
+    region: "",
+    address: "",
+    serviceArea: "",
+  });
 
+  const handleLocationChange = (input) => (e) => {
+    setLocation({ ...location, [e.target.name]: e.target.value });
+  };
+
+  const inputLocationChange = (e, newInputValue) => {
+    setLocation({ ...location, [e.target.name]: newInputValue });
+  };
   return (
     <Container>
       <p className="m-3">Bussiness Location</p>
-      <Container>
+      {/* <Container>
         <Row className="gx-2">
           <Col md={7}>
             <Autocomplete
-              value={country}
-              onInputChange={(event, newInputValue) => {
-                setCountry(newInputValue);
-              }}
+              name="country"
+              value={location.country}
+              onInputChange={inputChange}
               id="combo-box-demo"
               options={countries}
               renderInput={(params) => (
                 <TextField
+                  name="country"
                   {...params}
                   label="Country"
                   variant="standard"
-                  onChange={(e) => {
-                    setCountry(e.current.value);
-                  }}
+                  onChange={handleChange}
                 />
               )}
             />
           </Col>
+
           <Col xs={5}>
             <Autocomplete
-              value={region}
-              onInputChange={(event, newInputValue) => {
-                setRegion(newInputValue);
-              }}
+              name="region"
+              value={location.region}
+              onInputChange={inputChange}
               id="combo-box-demo"
               options={countries}
               renderInput={(params) => (
                 <TextField
+                  name="region"
+                  {...params}
+                  label="Region"
+                  variant="standard"
+                  onChange={handleChange}
+                />
+              )}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12}>
+            <Autocomplete
+              name="city"
+              value={location.city}
+              onInputChange={inputChange}
+              id="combo-box-demo"
+              options={countries}
+              renderInput={(params) => (
+                <TextField
+                  name="city"
                   {...params}
                   label="City"
                   variant="standard"
-                  onChange={(e) => {
-                    setRegion(e.current.value);
-                  }}
+                  onChange={handleChange}
                 />
               )}
             />
@@ -119,42 +128,18 @@ function LocationDetails() {
         <Row>
           <Col xs={12}>
             <Autocomplete
-              value={city}
-              onInputChange={(event, newInputValue) => {
-                setCity(newInputValue);
-              }}
+              name="address"
+              value={location.address}
+              onInputChange={inputChange}
               id="combo-box-demo"
               options={countries}
               renderInput={(params) => (
                 <TextField
+                  name="address"
                   {...params}
                   label="Address"
                   variant="standard"
-                  onChange={(e) => {
-                    setCity(e.current.value);
-                  }}
-                />
-              )}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={12}>
-            <Autocomplete
-              value={address}
-              onInputChange={(event, newInputValue) => {
-                setAddress(newInputValue);
-              }}
-              id="combo-box-demo"
-              options={countries}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Address"
-                  variant="standard"
-                  onChange={(e) => {
-                    setAddress(e.current.value);
-                  }}
+                  onChange={handleChange}
                 />
               )}
             />
@@ -165,13 +150,12 @@ function LocationDetails() {
       <p className="m-3">Service Areas</p>
       <Container>
         <Autocomplete
+          name="serviceArea"
           multiple
-          value={operationCity}
+          value={location.serviceArea}
           id="size-small-standard-multi"
           options={cities}
-          onChange={(event, newValue) => {
-            setOperationCity(newValue);
-          }}
+          onInputChange={inputChange}
           disableCloseOnSelect
           getOptionLabel={(city) => city}
           renderOption={(props, city, { selected }) => (
@@ -187,12 +171,17 @@ function LocationDetails() {
           )}
           style={{ width: 500 }}
           renderInput={(params) => (
-            <TextField {...params} label="City" variant="standard" />
+            <TextField
+              name="serviceArea"
+              {...params}
+              label="City"
+              variant="standard"
+            />
           )}
         />
-      </Container>
+      </Container> */}
     </Container>
   );
-}
+};
 
 export default LocationDetails;

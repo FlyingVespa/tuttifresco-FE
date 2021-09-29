@@ -25,6 +25,17 @@ const TradingHoursDetails = () => {
   });
 
   // const { mon, tue, wed, thu, fri, sat, sun } = this.state.hours;
+  const handleTimeChange = (e) => {
+    days.map((day) =>
+      setTimes({
+        ...times,
+        [day]: {
+          ...times[day],
+          [e.target.name]: e.target.checked,
+        },
+      })
+    );
+  };
 
   const days = Object.keys(times);
 
@@ -40,6 +51,7 @@ const TradingHoursDetails = () => {
                   <FormControlLabel
                     control={
                       <Checkbox
+                        name="trading"
                         checked={times[day].trading}
                         onChange={(e) =>
                           setTimes({
@@ -67,9 +79,10 @@ const TradingHoursDetails = () => {
                     <Row>
                       <Col xs={5}>
                         <TextField
+                          name="open"
                           variant="standard"
                           id="time"
-                          label="Open"
+                          label="open"
                           type="time"
                           value={times[day].open}
                           InputLabelProps={{
@@ -93,9 +106,10 @@ const TradingHoursDetails = () => {
                       <Col xs={1}>to</Col>
                       <Col xs={5}>
                         <TextField
+                          name="close"
                           variant="standard"
                           id="time"
-                          label="Close"
+                          label="close"
                           type="time"
                           value={times[day].closed}
                           onChange={(e) =>

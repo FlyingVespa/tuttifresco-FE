@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   StepLabel,
   Step,
@@ -27,76 +28,16 @@ function getSteps() {
 }
 
 const RegBusiness = () => {
+  const contact = useSelector((s) => s.contact);
+  const location = useSelector((s) => s.location);
+  const times = useSelector((s) => s.times);
+  const basic = useSelector((s) => s.basic);
+
   const [regForm, setRegForm] = useState({
-    basic: {
-      name: null,
-      category: null,
-      accemail: null,
-      delivery: null,
-      username: null,
-      password: null,
-    },
-    location: {
-      country: null,
-      city: null,
-      region: null,
-      address: null,
-      serviceArea: null,
-    },
-    times: {
-      monday: { trading: true, open: "01:11", closed: "04:00" },
-      tuesday: { trading: true, open: "", closed: "" },
-      wednesday: { trading: true, open: "", closed: "" },
-      thursday: { trading: false, open: "", closed: "" },
-      friday: { trading: true, open: "", closed: "" },
-      saturday: { trading: true, open: "", closed: "" },
-      sunday: { trading: true, open: "", closed: "" },
-      public: { trading: true, open: "", closed: "" },
-    },
-    contact: {
-      email: null,
-      cell: null,
-      tel: null,
-      twitter: null,
-      insta: null,
-      whatsapp: null,
-    },
-  });
-  const [location, setLocation] = useState({
-    country: null,
-    city: null,
-    region: null,
-    address: null,
-    serviceArea: null,
-  });
-
-  const [times, setTimes] = useState({
-    monday: { trading: true, open: "01:11", closed: "04:00" },
-    tuesday: { trading: true, open: "", closed: "" },
-    wednesday: { trading: true, open: "", closed: "" },
-    thursday: { trading: false, open: "", closed: "" },
-    friday: { trading: true, open: "", closed: "" },
-    saturday: { trading: true, open: "", closed: "" },
-    sunday: { trading: true, open: "", closed: "" },
-    public: { trading: true, open: "", closed: "" },
-  });
-
-  const [basic, setBasicDetails] = useState({
-    name: null,
-    category: null,
-    accemail: null,
-    delivery: null,
-    username: null,
-    password: null,
-  });
-
-  const [contact, setContact] = useState({
-    email: null,
-    cell: null,
-    tel: null,
-    twitter: null,
-    insta: null,
-    whatsapp: null,
+    basic: basic,
+    location: location,
+    times: times,
+    contact: contact,
   });
 
   const [activeStep, setActiveStep] = useState(0);

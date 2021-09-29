@@ -1,38 +1,7 @@
 const initialState = {
-  formBusiness: {
-    businesName: null,
-    businessCategory: null,
-    accEmail: null,
-    delivery: null,
-    password: null,
-    contact: {
-      email: null,
-      tel: null,
-      cell: null,
-      insta: null,
-      whatsapp: null,
-      twitter: null,
-    },
-    times: {
-      monday: { trading: true, open: "01:11", closed: "04:00" },
-      tuesday: { trading: true, open: "", closed: "" },
-      wednesday: { trading: true, open: "", closed: "" },
-      thursday: { trading: false, open: "", closed: "" },
-      friday: { trading: true, open: "", closed: "" },
-      saturday: { trading: true, open: "", closed: "" },
-      sunday: { trading: true, open: "", closed: "" },
-      public: { trading: true, open: "", closed: "" },
-    },
-    location: {
-      country: null,
-      region: null,
-      city: null,
-      zip: null,
-      address: null,
-      serviceArea: [],
-    },
-  },
-  formUser: null,
+  contact: {},
+  location: {},
+  basic: {},
 };
 
 export const appReducer = (state = initialState, action) => {
@@ -40,7 +9,14 @@ export const appReducer = (state = initialState, action) => {
   switch (action.type) {
     case "REG_FORM_BUSSINESS":
       return { ...state, formBusiness: action.payload };
-
+    case "REG_BUSSINESS_CONTACT":
+      return { ...state, contact: action.payload };
+    case "REG_BUSSINESS_TIMES":
+      return { ...state, times: action.payload };
+    case "REG_BUSSINESS_BASIC":
+      return { ...state, basic: action.payload };
+    case "REG_BUSSINESS_LOCATION":
+      return { ...state, location: action.payload };
     case "REG_FORM_USER":
       return { ...state, formUser: action.payload };
 
@@ -49,3 +25,31 @@ export const appReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+// formBusiness: {
+//   businesName: null,
+//   businessCategory: null,
+//   accEmail: null,
+//   delivery: null,
+//   password: null,
+//   contact: {
+//     email: null,
+//     tel: null,
+//     cell: null,
+//     insta: null,
+//     whatsapp: null,
+//     twitter: null,
+//   },
+//   times: {
+//
+//   },
+//   location: {
+//     country: null,
+//     region: null,
+//     city: null,
+//     zip: null,
+//     address: null,
+//     serviceArea: [],
+//   },
+// },
+// formUser: null,

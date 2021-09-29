@@ -4,8 +4,8 @@ import { Col, Row, Navbar, Button, FormControl } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 
 const ContactDetails = () => {
-  const formBusiness = useSelector((s) => s.formBusiness);
   const dispatch = useDispatch();
+  const contacts = useSelector((s) => s.contact);
 
   const [contact, setContact] = useState({
     email: null,
@@ -16,12 +16,12 @@ const ContactDetails = () => {
     whatsapp: null,
   });
 
-  const handleContactChange = (e) => {
+  const handleChange = (e) => {
     setContact({ ...contact, [e.target.name]: e.target.value });
   };
 
   useEffect(() => {
-    dispatch({ type: "REG_FORM_BUSINESS", payload: formBusiness });
+    dispatch({ type: "REG_BUSINESS_CONTACT", payload: contact });
   }, []);
 
   return (
@@ -32,7 +32,7 @@ const ContactDetails = () => {
         label="Email"
         variant="standard"
         helperText="*Required - This email will be shared with customers"
-        onChange={handleContactChange}
+        onChange={handleChange}
         value={contact.email}
         margin="normal"
         fullWidth
@@ -45,7 +45,7 @@ const ContactDetails = () => {
             label="Mobile number"
             variant="standard"
             helperText="Required"
-            onChange={handleContactChange}
+            onChange={handleChange}
             value={contact.cell}
             fullWidth
           />
@@ -57,7 +57,7 @@ const ContactDetails = () => {
             label="Landline number"
             variant="standard"
             helperText="Optional"
-            onChange={handleContactChange}
+            onChange={handleChange}
             value={contact.tel}
             fullWidth
           />
@@ -69,7 +69,7 @@ const ContactDetails = () => {
             label="Mobile number"
             variant="standard"
             helperText="Optional"
-            onChange={handleContactChange}
+            onChange={handleChange}
             value={contact.insta}
             fullWidth
           />
@@ -81,7 +81,7 @@ const ContactDetails = () => {
             label="WhatsApp"
             variant="standard"
             helperText="Optional"
-            onChange={handleContactChange}
+            onChange={handleChange}
             value={contact.whatsapp}
             fullWidth
           />
