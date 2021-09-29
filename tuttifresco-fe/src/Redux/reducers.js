@@ -1,5 +1,37 @@
 const initialState = {
-  formBusiness: null,
+  formBusiness: {
+    businesName: null,
+    businessCategory: null,
+    accEmail: null,
+    delivery: null,
+    password: null,
+    contact: {
+      email: null,
+      tel: null,
+      cell: null,
+      insta: null,
+      whatsapp: null,
+      twitter: null,
+    },
+    times: {
+      monday: { trading: true, open: "01:11", closed: "04:00" },
+      tuesday: { trading: true, open: "", closed: "" },
+      wednesday: { trading: true, open: "", closed: "" },
+      thursday: { trading: false, open: "", closed: "" },
+      friday: { trading: true, open: "", closed: "" },
+      saturday: { trading: true, open: "", closed: "" },
+      sunday: { trading: true, open: "", closed: "" },
+      public: { trading: true, open: "", closed: "" },
+    },
+    location: {
+      country: null,
+      region: null,
+      city: null,
+      zip: null,
+      address: null,
+      serviceArea: [],
+    },
+  },
   formUser: null,
 };
 

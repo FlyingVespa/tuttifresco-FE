@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import {
   Autocomplete,
@@ -46,6 +46,13 @@ const cities = [
 ];
 
 function LocationDetails() {
+  const [location, setLocation] = useState({
+    country: null,
+    city: null,
+    region: null,
+    address: null,
+    serviceArea: null,
+  });
   const [country, setCountry] = React.useState("");
   const [city, setCity] = React.useState("");
   const [address, setAddress] = React.useState("");

@@ -4,29 +4,15 @@ import {
   Checkbox,
   TextField,
   FormLabel,
-  Switch,
   FormControlLabel,
   FormGroup,
-  FormHelperText,
 } from "@mui/material";
 import { Col, Row } from "react-bootstrap";
 // import AdapterDateFns from "@mui/lab/AdapterDateFns";
 // import LocalizationProvider from "@mui/lab/LocalizationProvider";
 // import TimePicker from "@mui/lab/TimePicker";
 
-const TradingHours = () => {
-  const [value, setValue] = useState(new Date("2014-08-18T21:11:54"));
-
-  const [isOpen, setIsOpen] = useState({
-    tue: true,
-    wed: true,
-    thu: false,
-    fri: false,
-    sat: false,
-    sun: true,
-    mon: true,
-    public: false,
-  });
+const TradingHoursDetails = () => {
   const [times, setTimes] = useState({
     monday: { trading: true, open: "01:11", closed: "04:00" },
     tuesday: { trading: true, open: "", closed: "" },
@@ -38,12 +24,6 @@ const TradingHours = () => {
     public: { trading: true, open: "", closed: "" },
   });
 
-  // const handleTimeChange = (event) => {
-  //   setTimes({
-  //     ...times,
-  //     [times[day].trading]: event.target.value,
-  //   });
-  // };
   // const { mon, tue, wed, thu, fri, sat, sun } = this.state.hours;
 
   const days = Object.keys(times);
@@ -62,7 +42,13 @@ const TradingHours = () => {
                       <Checkbox
                         checked={times[day].trading}
                         onChange={(e) =>
-                          setTimes(...times[day].trading, e.target.checked)
+                          setTimes({
+                            ...times,
+                            [day]: {
+                              ...times[day],
+                              trading: e.target.checked,
+                            },
+                          })
                         }
                         // name={day}
                       />
@@ -96,12 +82,15 @@ const TradingHours = () => {
                           onChange={(e) =>
                             setTimes({
                               ...times,
-                              [times[day].open]: e.target.value,
+                              [day]: {
+                                ...times[day],
+                                open: e.target.value,
+                              },
                             })
                           }
                         />
                       </Col>
-                      <Col xs={2}>to</Col>
+                      <Col xs={1}>to</Col>
                       <Col xs={5}>
                         <TextField
                           variant="standard"
@@ -109,6 +98,15 @@ const TradingHours = () => {
                           label="Close"
                           type="time"
                           value={times[day].closed}
+                          onChange={(e) =>
+                            setTimes({
+                              ...times,
+                              [day]: {
+                                ...times[day],
+                                closed: e.target.value,
+                              },
+                            })
+                          }
                           defaultValue="17:00"
                           InputLabelProps={{
                             shrink: true,
@@ -131,4 +129,4 @@ const TradingHours = () => {
   );
 };
 
-export default TradingHours;
+export default TradingHoursDetails;

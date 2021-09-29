@@ -7,11 +7,6 @@ import {
   Stepper,
   Container,
   Button,
-  Radio,
-  RadioGroup,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
 } from "@mui/material";
 
 import { Col, Row, Image } from "react-bootstrap";
@@ -22,8 +17,6 @@ import reg from "../../Reg.png";
 
 import RegBasicDetails from "./RegisterComponents/AccDetails";
 import RegContactDetails from "./RegisterComponents/ContactDetails";
-import Confirm from "./RegisterComponents/Confirm";
-import Success from "./RegisterComponents/Success";
 
 function getSteps() {
   return [

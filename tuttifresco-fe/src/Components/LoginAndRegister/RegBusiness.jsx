@@ -7,45 +7,105 @@ import {
   Stepper,
   Container,
   Button,
-  Radio,
-  RadioGroup,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
 } from "@mui/material";
 
-import { Col, Row, Image } from "react-bootstrap";
-
-import regbus from "../../regbus.png";
-import reguser from "../../reguser.png";
-import reg from "../../Reg.png";
-
 import ContactDetails from "./RegisterComponents/ContactDetails";
-import Confirm from "./RegisterComponents/Confirm";
+import ConfirmDetails from "./RegisterComponents/ConfirmDetails";
 import Success from "./RegisterComponents/Success";
 import LocationDetails from "./RegisterComponents/LocationDetails";
 import AccDetails from "./RegisterComponents/AccDetails";
-import TradingHours from "./RegisterComponents/TradingHours";
+import TradingHoursDetails from "./RegisterComponents/TradingHoursDetails";
 
 function getSteps() {
   return [
     "Account Details",
-    "Business Details",
+    "Contact Details",
     "Location",
     "Trading Hours",
-    "Contact Details",
-    "Confirm",
+    "Confirm Details",
   ];
 }
 
-function RegBusiness() {
+const RegBusiness = () => {
+  const [regForm, setRegForm] = useState({
+    basic: {
+      name: null,
+      category: null,
+      accemail: null,
+      delivery: null,
+      username: null,
+      password: null,
+    },
+    location: {
+      country: null,
+      city: null,
+      region: null,
+      address: null,
+      serviceArea: null,
+    },
+    times: {
+      monday: { trading: true, open: "01:11", closed: "04:00" },
+      tuesday: { trading: true, open: "", closed: "" },
+      wednesday: { trading: true, open: "", closed: "" },
+      thursday: { trading: false, open: "", closed: "" },
+      friday: { trading: true, open: "", closed: "" },
+      saturday: { trading: true, open: "", closed: "" },
+      sunday: { trading: true, open: "", closed: "" },
+      public: { trading: true, open: "", closed: "" },
+    },
+    contact: {
+      email: null,
+      cell: null,
+      tel: null,
+      twitter: null,
+      insta: null,
+      whatsapp: null,
+    },
+  });
+  const [location, setLocation] = useState({
+    country: null,
+    city: null,
+    region: null,
+    address: null,
+    serviceArea: null,
+  });
+
+  const [times, setTimes] = useState({
+    monday: { trading: true, open: "01:11", closed: "04:00" },
+    tuesday: { trading: true, open: "", closed: "" },
+    wednesday: { trading: true, open: "", closed: "" },
+    thursday: { trading: false, open: "", closed: "" },
+    friday: { trading: true, open: "", closed: "" },
+    saturday: { trading: true, open: "", closed: "" },
+    sunday: { trading: true, open: "", closed: "" },
+    public: { trading: true, open: "", closed: "" },
+  });
+
+  const [basic, setBasicDetails] = useState({
+    name: null,
+    category: null,
+    accemail: null,
+    delivery: null,
+    username: null,
+    password: null,
+  });
+
+  const [contact, setContact] = useState({
+    email: null,
+    cell: null,
+    tel: null,
+    twitter: null,
+    insta: null,
+    whatsapp: null,
+  });
+
   const [activeStep, setActiveStep] = useState(0);
   const [skipped, setSkipped] = useState(new Set());
   const [typeAccReg, setTypeAccReg] = useState("business");
   const steps = getSteps();
 
   function getStepContent(step) {
-    if (typeAccReg == "business") {
+    if (typeAccReg === "business") {
       switch (step) {
         case 0:
           return <AccDetails />;
@@ -54,13 +114,9 @@ function RegBusiness() {
         case 2:
           return <LocationDetails />;
         case 3:
-          return <TradingHours />;
+          return <TradingHoursDetails />;
         case 4:
-          return "This is the bit I really care about!";
-        case 5:
-          return <ContactDetails />;
-        case 6:
-          return "This is the bit I really care about!";
+          return " <ConfirmDetails />";
         default:
           return "Unknown step";
       }
@@ -68,7 +124,7 @@ function RegBusiness() {
     return <div></div>;
   }
   const isStepOptional = (step) => {
-    return step === 1;
+    return step === 7;
   };
 
   const isStepSkipped = (step) => {
@@ -137,6 +193,9 @@ function RegBusiness() {
           <div>
             <Button onClick={handleReset}>Reset</Button>
             <Typography>All steps completed - you&apos;re finished</Typography>
+            <Button className="mx-auto" variant="primary">
+              Go To Login
+            </Button>
           </div>
         ) : (
           <div>
@@ -155,7 +214,7 @@ function RegBusiness() {
               )}
 
               <Button variant="contained" color="primary" onClick={handleNext}>
-                {activeStep === steps.length - 1 ? "Finish" : "Next"}
+                {activeStep === steps.length - 1 ? "Confirm" : "Next"}
               </Button>
               <Typography>{getStepContent(activeStep)}</Typography>
             </Container>
@@ -164,6 +223,6 @@ function RegBusiness() {
       </div>
     </Container>
   );
-}
+};
 
 export default RegBusiness;

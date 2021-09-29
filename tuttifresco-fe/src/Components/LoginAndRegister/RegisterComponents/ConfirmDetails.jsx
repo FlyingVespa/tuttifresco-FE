@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Col, Row, Navbar, Button } from "react-bootstrap";
 
-export class Confirm extends Component {
+class ConfirmDetails extends Component {
   continue = (e) => {
     e.preventDefault();
     // PROCESS FORM //
@@ -19,7 +19,6 @@ export class Confirm extends Component {
     } = this.props;
     return (
       <>
-        <Navbar title="Confirm User Data" />
         <Row>
           <Col>
             <p primary="First Name" secondary={firstName} />
@@ -54,4 +53,4 @@ export class Confirm extends Component {
   }
 }
 
-export default Confirm;
+export default ConfirmDetails;

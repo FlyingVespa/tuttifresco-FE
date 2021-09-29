@@ -1,78 +1,94 @@
 import { TextField } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Col, Row, Navbar, Button, FormControl } from "react-bootstrap";
+import { useSelector, useDispatch } from "react-redux";
 
-function ContactDetails() {
-  const [email, setEmail] = useState("");
-  const [mobile, setMobile] = useState("");
-  const [landline, setLandline] = useState("");
-  const [twitter, setTwitter] = useState(null);
-  const [instagram, setInstagram] = useState(null);
-  const [whatsApp, setWhatsApp] = useState(null);
+const ContactDetails = () => {
+  const formBusiness = useSelector((s) => s.formBusiness);
+  const dispatch = useDispatch();
+
+  const [contact, setContact] = useState({
+    email: null,
+    cell: null,
+    tel: null,
+    twitter: null,
+    insta: null,
+    whatsapp: null,
+  });
+
+  const handleContactChange = (e) => {
+    setContact({ ...contact, [e.target.name]: e.target.value });
+  };
+
+  useEffect(() => {
+    dispatch({ type: "REG_FORM_BUSINESS", payload: formBusiness });
+  }, []);
 
   return (
     <>
       <TextField
         placeholder="Enter email visible for customers"
+        name="email"
         label="Email"
         variant="standard"
         helperText="*Required - This email will be shared with customers"
-        onChange={(e) => setEmail(e.target.value)}
-        value={email}
+        onChange={handleContactChange}
+        value={contact.email}
         margin="normal"
         fullWidth
       />
       <Row>
-        <Col>
-          {" "}
+        <Col md={6}>
           <TextField
+            name="cell"
             placeholder="Enter mobile"
             label="Mobile number"
             variant="standard"
             helperText="Required"
-            onChange={(e) => setMobile(e.target.value)}
-            value={mobile}
+            onChange={handleContactChange}
+            value={contact.cell}
             fullWidth
           />
         </Col>
-        <Col>
+        <Col md={6}>
           <TextField
+            name="tel"
             placeholder="Enter landline"
             label="Landline number"
             variant="standard"
             helperText="Optional"
-            onChange={(e) => setLandline(e.target.value)}
-            value={landline}
+            onChange={handleContactChange}
+            value={contact.tel}
             fullWidth
           />
         </Col>
-      </Row>
-      <Row>
-        <Col>
+        <Col md={6}>
           <TextField
-            placeholder="Enter mobile"
+            name="insta"
+            placeholder="Enter WhatsApp Number"
             label="Mobile number"
             variant="standard"
             helperText="Optional"
-            onChange={(e) => setInstagram(e.target.value)}
-            value={instagram}
+            onChange={handleContactChange}
+            value={contact.insta}
             fullWidth
           />
         </Col>
-        <Col>
+        <Col md={6}>
           <TextField
+            name="whatsapp"
             placeholder="Enter whatsApp number"
             label="WhatsApp"
             variant="standard"
             helperText="Optional"
-            onChange={(e) => setWhatsApp(e.target.value)}
-            value={whatsApp}
+            onChange={handleContactChange}
+            value={contact.whatsapp}
             fullWidth
           />
         </Col>
       </Row>
     </>
   );
-}
+};
 
 export default ContactDetails;
