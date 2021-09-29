@@ -57,7 +57,7 @@ const RegBusiness = () => {
         case 3:
           return <TradingHoursDetails />;
         case 4:
-          return " <ConfirmDetails />";
+          return <ConfirmDetails />;
         default:
           return "Unknown step";
       }

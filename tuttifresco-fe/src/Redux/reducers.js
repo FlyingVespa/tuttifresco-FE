@@ -1,14 +1,28 @@
 const initialState = {
-  contact: {},
+  contact: {
+    email: null,
+    cell: null,
+    tel: null,
+    twitter: null,
+    insta: null,
+    whatsapp: null,
+  },
   location: {},
-  basic: {},
+  basic: {
+    name: null,
+    category: null,
+    accemail: null,
+    delivery: null,
+    username: null,
+    password: null,
+  },
 };
 
 export const appReducer = (state = initialState, action) => {
   console.log(action);
   switch (action.type) {
-    case "REG_FORM_BUSSINESS":
-      return { ...state, formBusiness: action.payload };
+    // case "REG_FORM_BUSSINESS":
+    //   return { ...state, formBusiness: action.payload };
     case "REG_BUSSINESS_CONTACT":
       return { ...state, contact: action.payload };
     case "REG_BUSSINESS_TIMES":

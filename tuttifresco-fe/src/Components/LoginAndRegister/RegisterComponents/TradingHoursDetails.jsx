@@ -8,9 +8,6 @@ import {
   FormGroup,
 } from "@mui/material";
 import { Col, Row } from "react-bootstrap";
-// import AdapterDateFns from "@mui/lab/AdapterDateFns";
-// import LocalizationProvider from "@mui/lab/LocalizationProvider";
-// import TimePicker from "@mui/lab/TimePicker";
 
 const TradingHoursDetails = () => {
   const [times, setTimes] = useState({
@@ -24,8 +21,7 @@ const TradingHoursDetails = () => {
     public: { trading: true, open: "", closed: "" },
   });
 
-  // const { mon, tue, wed, thu, fri, sat, sun } = this.state.hours;
-  const handleTimeChange = (e) => {
+  const handleChange = (e) => {
     days.map((day) =>
       setTimes({
         ...times,

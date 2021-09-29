@@ -31,6 +31,13 @@ const deliveryDistance = [
 ];
 
 const AccDetails = () => {
+  const [values, setValues] = useState({
+    amount: "",
+    password: "",
+    weight: "",
+    weightRange: "",
+    showPassword: false,
+  });
   const [basic, setBasicDetails] = useState({
     name: null,
     category: null,
@@ -38,13 +45,6 @@ const AccDetails = () => {
     delivery: null,
     username: null,
     password: null,
-  });
-  const [values, setValues] = useState({
-    amount: "",
-    password: "",
-    weight: "",
-    weightRange: "",
-    showPassword: false,
   });
 
   const handleChange = (e) => {
@@ -96,8 +96,10 @@ const AccDetails = () => {
         fullWidth
         helperText="*Required - not shared with public"
       />
-      <FormControl sx={{ m: 1, width: "25ch" }} variant="standard">
-        <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+      <FormControl variant="standard">
+        <InputLabel htmlFor="standard-adornment-password" fullWidth>
+          Password
+        </InputLabel>
         <Input
           name="password"
           id="standard-adornment-password"
