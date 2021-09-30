@@ -5,24 +5,21 @@ import { useSelector, useDispatch } from "react-redux";
 
 const ContactDetails = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector((s) => s.contact);
-
-  const [contact, setContact] = useState({
-    email: null,
-    cell: null,
-    tel: null,
-    twitter: null,
-    insta: null,
-    whatsapp: null,
-  });
+  const form = useSelector((s) => s.formBusiness);
 
   const handleChange = (e) => {
-    setContact({ ...contact, [e.target.name]: e.target.value });
+    const payload = {
+      field: "contact",
+      data: {
+        [e.target.name]: e.target.value,
+      },
+    };
+    dispatch({ type: "REG_BUSINESS_FIELD", payload });
   };
 
-  useEffect(() => {
-    dispatch({ type: "REG_BUSINESS_CONTACT", payload: contact });
-  }, []);
+  // useEffect(() => {
+  //   dispatch({ type: "REG_BUSINESS_CONTACT", payload: contact });
+  // }, []);
 
   return (
     <>
@@ -33,7 +30,7 @@ const ContactDetails = () => {
         variant="standard"
         helperText="*Required - This email will be shared with customers"
         onChange={handleChange}
-        value={contact.email}
+        value=""
         margin="normal"
         fullWidth
       />
@@ -46,7 +43,7 @@ const ContactDetails = () => {
             variant="standard"
             helperText="Required"
             onChange={handleChange}
-            value={contact.cell}
+            value={form.contact.cell}
             fullWidth
           />
         </Col>
@@ -58,7 +55,7 @@ const ContactDetails = () => {
             variant="standard"
             helperText="Optional"
             onChange={handleChange}
-            value={contact.tel}
+            value={form.contact.tel}
             fullWidth
           />
         </Col>
@@ -70,7 +67,7 @@ const ContactDetails = () => {
             variant="standard"
             helperText="Optional"
             onChange={handleChange}
-            value={contact.insta}
+            value={form.contact.insta}
             fullWidth
           />
         </Col>
@@ -82,11 +79,12 @@ const ContactDetails = () => {
             variant="standard"
             helperText="Optional"
             onChange={handleChange}
-            value={contact.whatsapp}
+            value={form.contact.whatsapp}
             fullWidth
           />
         </Col>
       </Row>
+      <Button onClick={handleChange}> store</Button>
     </>
   );
 };

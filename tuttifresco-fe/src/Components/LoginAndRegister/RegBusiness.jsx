@@ -28,17 +28,24 @@ function getSteps() {
 }
 
 const RegBusiness = () => {
-  const contact = useSelector((s) => s.contact);
-  const location = useSelector((s) => s.location);
-  const times = useSelector((s) => s.times);
-  const basic = useSelector((s) => s.basic);
+  const dispatch = useDispatch();
+  const form = useSelector((s) => s.formBusiness);
+  const handleChange = (e) => {
+    const payload = {
+      field: "contact",
+      data: {
+        [e.target.name]: e.target.value,
+      },
+    };
+    dispatch({ type: "REG_BUSINESS_FIELD", payload });
+  };
 
-  const [regForm, setRegForm] = useState({
-    basic: basic,
-    location: location,
-    times: times,
-    contact: contact,
-  });
+  // const [regForm, setRegForm] = useState({
+  //   basic: form.basic,
+  //   location: form.location,
+  //   times: form.times,
+  //   contact: form.contact,
+  // });
 
   const [activeStep, setActiveStep] = useState(0);
   const [skipped, setSkipped] = useState(new Set());

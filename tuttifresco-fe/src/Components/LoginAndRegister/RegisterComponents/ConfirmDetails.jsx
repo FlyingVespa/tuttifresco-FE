@@ -21,7 +21,7 @@ const ConfirmDetails = (props) => {
 
   return (
     <>
-      <Row>
+      {/* <Row>
         <Col>
           <p primary="Business Name" secondary={basic?.name} />
         </Col>
@@ -79,7 +79,7 @@ const ConfirmDetails = (props) => {
         <Col>
           <p primary="Twitter" secondary={contact?.twitter}></p>
         </Col>
-      </Row>
+      </Row> */}
       <br />
     </>
   );
