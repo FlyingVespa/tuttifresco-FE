@@ -8,9 +8,8 @@ import {
   IconButton,
   InputLabel,
 } from "@mui/material";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { useSelector, useDispatch } from "react-redux";
 import { Row, Col } from "react-bootstrap";
 
 const category = [
@@ -30,7 +29,10 @@ const deliveryDistance = [
   "Less than 10km",
 ];
 
-const AccDetails = () => {
+const AccDetails = ({ f, d }) => {
+  const dispatch = useDispatch();
+  const form = useSelector((s) => s.formBusiness);
+
   const [values, setValues] = useState({
     amount: "",
     password: "",
@@ -38,22 +40,7 @@ const AccDetails = () => {
     weightRange: "",
     showPassword: false,
   });
-  const [basic, setBasicDetails] = useState({
-    name: null,
-    category: null,
-    accemail: null,
-    delivery: null,
-    username: null,
-    password: null,
-  });
 
-  const handleChange = (e) => {
-    setBasicDetails({ ...basic, [e.target.name]: e.target.value });
-  };
-
-  const inputChange = (e, newInputValue) => {
-    setBasicDetails({ ...basic, [e.target.name]: newInputValue });
-  };
   const handlePasswordChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
@@ -69,37 +56,35 @@ const AccDetails = () => {
     event.preventDefault();
   };
 
-  // const handleChange = (event) => {
-  //   setDelivery(event.target.value);
-  // };
   return (
     <div className="my-5">
       <TextField
-        name="accemail"
+        name="email"
+        id="basic"
         className="my-1"
         variant="standard"
         placeholder="Enter Your email used for login"
         label="Account Email"
-        value={basic.accemail}
-        onChange={handleChange}
+        value={d.email}
+        onChange={f}
         fullWidth
         helperText="*Required - not shared with public"
       />
       <TextField
         name="username"
+        id="basic"
         className="my-1"
         variant="standard"
         placeholder="Enter Your preffered"
         label="Username"
-        value={basic.username}
-        onChange={handleChange}
+        value={d.username}
+        onChange={f}
         fullWidth
         helperText="*Required - not shared with public"
       />
-      <FormControl variant="standard">
-        <InputLabel htmlFor="standard-adornment-password" fullWidth>
-          Password
-        </InputLabel>
+      {/* 
+      <FormControl variant="standard" fullWidth className="mb-3">
+        <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
         <Input
           name="password"
           id="standard-adornment-password"
@@ -121,23 +106,24 @@ const AccDetails = () => {
       </FormControl>
       <hr className="my-4" />
       <TextField
+        id="basic"
         name="name"
         className="my-1"
         variant="standard"
         placeholder="Business Name"
         label="Business Name"
-        value={basic.name}
-        onChange={handleChange}
+        value={datas.basic.businesName}
+        onChange={f}
         fullWidth
         helperText="*Required - not shared with public"
-      />
-      <Row>
+      /> */}
+      {/* <Row>
         <Col>
           <Autocomplete
             name="category"
             className="my-3"
-            value={basic.category}
-            onInputChange={inputChange}
+            value={basics.category}
+            // onInputChange={inputChange}
             id="category"
             options={category}
             renderInput={(params) => (
@@ -145,7 +131,7 @@ const AccDetails = () => {
                 {...params}
                 name="category"
                 label="Type of business"
-                value={basic.category}
+                value={basics.category}
                 variant="standard"
                 onChange={handleChange}
               />
@@ -156,8 +142,8 @@ const AccDetails = () => {
           <Autocomplete
             name="delivery"
             className="my-3"
-            value={basic.delivery}
-            onInputChange={inputChange}
+            value={basics.delivery}
+            // onInputChange={inputChange}
             id="delivery"
             options={deliveryDistance}
             renderInput={(params) => (
@@ -165,14 +151,14 @@ const AccDetails = () => {
                 name="delivery"
                 {...params}
                 label="Delivery Service"
-                value={basic.delivery}
+                value={basics.delivery}
                 variant="standard"
                 onChange={handleChange}
               />
             )}
           />
         </Col>
-      </Row>
+      </Row> */}
     </div>
   );
 };

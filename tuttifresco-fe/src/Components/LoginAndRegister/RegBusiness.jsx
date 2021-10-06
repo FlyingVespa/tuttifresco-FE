@@ -30,25 +30,36 @@ function getSteps() {
 const RegBusiness = () => {
   const dispatch = useDispatch();
   const form = useSelector((s) => s.formBusiness);
-  const handleChange = (e) => {
-    const payload = {
-      field: "contact",
-      data: {
-        [e.target.name]: e.target.value,
-      },
-    };
-    dispatch({ type: "REG_BUSINESS_FIELD", payload });
+  const [datas, setData] = useState({
+    contact: {
+      email: "s",
+      tel: "",
+      cell: "",
+      insta: "",
+      whatsapp: "",
+      twitter: "",
+    },
+    basic: {
+      businesName: "",
+      category: "",
+      email: "s",
+      delivery: "",
+      password: "",
+      username: "",
+    },
+  });
+  const ss = Object.keys(datas);
+  const handleOnChange = ({ target }) => {
+    setData({ ...datas, ...(datas[target.name][target.id] = [target.value]) });
   };
 
-  // const [regForm, setRegForm] = useState({
-  //   basic: form.basic,
-  //   location: form.location,
-  //   times: form.times,
-  //   contact: form.contact,
-  // });
+  const payload = {};
+  const handleChange = (e) => {
+    dispatch({ type: "REG_BUSINESS_CONTACT", payload });
+    console.log(form.contact);
+  };
 
   const [activeStep, setActiveStep] = useState(0);
-  const [skipped, setSkipped] = useState(new Set());
   const [typeAccReg, setTypeAccReg] = useState("business");
   const steps = getSteps();
 
@@ -56,9 +67,9 @@ const RegBusiness = () => {
     if (typeAccReg === "business") {
       switch (step) {
         case 0:
-          return <AccDetails />;
+          return <AccDetails f={handleOnChange} d={datas.basic} />;
         case 1:
-          return <ContactDetails />;
+          return <ContactDetails f={handleOnChange} d={datas.contact} />;
         case 2:
           return <LocationDetails />;
         case 3:
@@ -71,42 +82,13 @@ const RegBusiness = () => {
     }
     return <div></div>;
   }
-  const isStepOptional = (step) => {
-    return step === 7;
-  };
-
-  const isStepSkipped = (step) => {
-    return skipped.has(step);
-  };
 
   const handleNext = () => {
-    let newSkipped = skipped;
-    if (isStepSkipped(activeStep)) {
-      newSkipped = new Set(newSkipped.values());
-      newSkipped.delete(activeStep);
-    }
-
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped(newSkipped);
   };
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  const handleSkip = () => {
-    if (!isStepOptional(activeStep)) {
-      // You probably want to guard against something like this,
-      // it should never occur unless someone's actively trying to break something.
-      throw new Error("You can't skip a step that isn't optional.");
-    }
-
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped((prevSkipped) => {
-      const newSkipped = new Set(prevSkipped.values());
-      newSkipped.add(activeStep);
-      return newSkipped;
-    });
   };
 
   const handleReset = () => {
@@ -121,14 +103,6 @@ const RegBusiness = () => {
         {steps.map((label, index) => {
           const stepProps = {};
           const labelProps = {};
-          if (isStepOptional(index)) {
-            labelProps.optional = (
-              <Typography variant="caption">Optional</Typography>
-            );
-          }
-          if (isStepSkipped(index)) {
-            stepProps.completed = false;
-          }
           return (
             <Step key={label} {...stepProps}>
               <StepLabel {...labelProps}>{label}</StepLabel>
@@ -151,16 +125,6 @@ const RegBusiness = () => {
               <Button disabled={activeStep === 0} onClick={handleBack}>
                 Back
               </Button>
-              {isStepOptional(activeStep) && (
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleSkip}
-                >
-                  Skip
-                </Button>
-              )}
-
               <Button variant="contained" color="primary" onClick={handleNext}>
                 {activeStep === steps.length - 1 ? "Confirm" : "Next"}
               </Button>

@@ -1,3 +1,4 @@
+import { StayCurrentLandscape } from "@mui/icons-material";
 import { TextField } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { Col, Row, Navbar, Button, FormControl } from "react-bootstrap";
@@ -6,35 +7,48 @@ import { useSelector, useDispatch } from "react-redux";
 const ContactDetails = () => {
   const dispatch = useDispatch();
   const form = useSelector((s) => s.formBusiness);
-
+  const [contact, setContact] = useState({
+    email: "",
+    tel: "",
+    cell: "",
+    insta: "",
+    whatsapp: "",
+    twitter: "",
+  });
   const handleChange = (e) => {
-    const payload = {
-      field: "contact",
-      data: {
-        [e.target.name]: e.target.value,
-      },
-    };
-    dispatch({ type: "REG_BUSINESS_FIELD", payload });
+    setContact({ ...contact, [e.target.name]: e.target.value });
+    dispatch({ type: "REG_BUSINESS_CONTACT", payload: contact });
+    console.log(form.contact);
   };
-
-  // useEffect(() => {
-  //   dispatch({ type: "REG_BUSINESS_CONTACT", payload: contact });
-  // }, []);
 
   return (
     <>
       <TextField
         placeholder="Enter email visible for customers"
+        id="contact"
         name="email"
         label="Email"
         variant="standard"
         helperText="*Required - This email will be shared with customers"
         onChange={handleChange}
-        value=""
+        value={contact.email}
         margin="normal"
         fullWidth
       />
-      <Row>
+      <TextField
+        placeholder="Enter email visible for customers"
+        id="contact"
+        name="cell"
+        label="MObile"
+        variant="standard"
+        helperText="*Required - This email will be shared with customers"
+        onChange={handleChange}
+        value={contact.cell}
+        margin="normal"
+        fullWidth
+      />
+
+      {/* <Row>
         <Col md={6}>
           <TextField
             name="cell"
@@ -43,7 +57,7 @@ const ContactDetails = () => {
             variant="standard"
             helperText="Required"
             onChange={handleChange}
-            value={form.contact.cell}
+            value={contact.cell}
             fullWidth
           />
         </Col>
@@ -55,7 +69,7 @@ const ContactDetails = () => {
             variant="standard"
             helperText="Optional"
             onChange={handleChange}
-            value={form.contact.tel}
+            value={contact.tel}
             fullWidth
           />
         </Col>
@@ -67,7 +81,7 @@ const ContactDetails = () => {
             variant="standard"
             helperText="Optional"
             onChange={handleChange}
-            value={form.contact.insta}
+            value={contact.insta}
             fullWidth
           />
         </Col>
@@ -79,12 +93,12 @@ const ContactDetails = () => {
             variant="standard"
             helperText="Optional"
             onChange={handleChange}
-            value={form.contact.whatsapp}
+            value={contact.whatsapp}
             fullWidth
           />
         </Col>
       </Row>
-      <Button onClick={handleChange}> store</Button>
+      <Button onClick={handleChange}> store</Button> */}
     </>
   );
 };
