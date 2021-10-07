@@ -9,6 +9,7 @@ import {
   Container,
   Button,
 } from "@mui/material";
+import "./RegisterComponents/businessRegister.css";
 
 import ContactDetails from "./RegisterComponents/ContactDetails";
 import ConfirmDetails from "./RegisterComponents/ConfirmDetails";
@@ -30,6 +31,13 @@ function getSteps() {
 const RegBusiness = () => {
   const dispatch = useDispatch();
   const form = useSelector((s) => s.formBusiness);
+  const [values, setValues] = useState({
+    amount: "",
+    password: "111",
+    weight: "",
+    weightRange: "",
+    showPassword: false,
+  });
   const [datas, setData] = useState({
     contact: {
       email: "s",
@@ -40,23 +48,71 @@ const RegBusiness = () => {
       twitter: "",
     },
     basic: {
-      businesName: "",
-      category: "",
-      email: "s",
-      delivery: "",
-      password: "",
+      name: "Fish Palace",
+      category: "Fishery",
+      email: "test@email.com",
+      delivery: true,
+      password: "1234",
       username: "",
+      amount: "",
+      weight: "",
+      weightRange: "",
+      showPassword: false,
+    },
+    times: {
+      monday: { trading: true, open: "09:15", closed: "16:00" },
+      tuesday: { trading: true, open: "", closed: "" },
+      wednesday: { trading: true, open: "", closed: "" },
+      thursday: { trading: true, open: "", closed: "" },
+      friday: { trading: true, open: "09:00", closed: "17:00" },
+      saturday: { trading: true, open: "", closed: "" },
+      sunday: { trading: true, open: "", closed: "" },
+      public: { trading: true, open: "", closed: "" },
     },
   });
-  const ss = Object.keys(datas);
-  const handleOnChange = ({ target }) => {
-    setData({ ...datas, ...(datas[target.name][target.id] = [target.value]) });
+
+  const handlePasswordChange = ({ target }) => {
+    setData({ ...datas, [target.id]: target.value });
+    // setData({
+    //   ...datas,
+    //   [target.id]: { ...datas[target.id], [target.name]: values.password },
+    // });
   };
 
-  const payload = {};
-  const handleChange = (e) => {
-    dispatch({ type: "REG_BUSINESS_CONTACT", payload });
-    console.log(form.contact);
+  const handleClickShowPassword = ({ target }) => {
+    setData({
+      ...datas,
+      [target.id]: { ...datas[target.id], showPassword: !values.showPassword },
+    });
+    setValues({
+      ...values,
+      showPassword: !values.showPassword,
+    });
+  };
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+  const days = Object.keys(datas.times);
+  const handleOnChange = ({ target }) => {
+    setData({
+      ...datas,
+      [target.id]: { ...datas[target.id], [target.name]: target.value },
+    });
+    dispatch({ type: "REG_BUSINESS_CONTACT", payload: datas });
+  };
+  const handleTimeChange = ({ target }) => {
+    setData({
+      ...datas,
+      times: {
+        ...datas.times,
+        [target.name]: {
+          ...datas.times[target.name],
+          [target.id]: target.value || target.checked,
+        },
+      },
+    });
+
+    dispatch({ type: "REG_BUSINESS_CONTACT", payload: datas });
   };
 
   const [activeStep, setActiveStep] = useState(0);
@@ -67,15 +123,30 @@ const RegBusiness = () => {
     if (typeAccReg === "business") {
       switch (step) {
         case 0:
-          return <AccDetails f={handleOnChange} d={datas.basic} />;
+          return (
+            <AccDetails
+              handleMouseDownPassword={handleMouseDownPassword}
+              handlePasswordChange={handlePasswordChange}
+              handleClickShowPassword={handleClickShowPassword}
+              v={values}
+              f={handleOnChange}
+              d={datas.basic}
+            />
+          );
         case 1:
           return <ContactDetails f={handleOnChange} d={datas.contact} />;
         case 2:
           return <LocationDetails />;
         case 3:
-          return <TradingHoursDetails />;
+          return (
+            <TradingHoursDetails
+              f={handleTimeChange}
+              d={datas.times}
+              days={days}
+            />
+          );
         case 4:
-          return <ConfirmDetails />;
+          return <ConfirmDetails d={datas} />;
         default:
           return "Unknown step";
       }

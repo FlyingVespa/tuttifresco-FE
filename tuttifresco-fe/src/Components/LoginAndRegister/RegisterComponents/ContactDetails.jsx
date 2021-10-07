@@ -4,22 +4,9 @@ import React, { useState, useEffect } from "react";
 import { Col, Row, Navbar, Button, FormControl } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 
-const ContactDetails = () => {
+const ContactDetails = ({ d, f }) => {
   const dispatch = useDispatch();
   const form = useSelector((s) => s.formBusiness);
-  const [contact, setContact] = useState({
-    email: "",
-    tel: "",
-    cell: "",
-    insta: "",
-    whatsapp: "",
-    twitter: "",
-  });
-  const handleChange = (e) => {
-    setContact({ ...contact, [e.target.name]: e.target.value });
-    dispatch({ type: "REG_BUSINESS_CONTACT", payload: contact });
-    console.log(form.contact);
-  };
 
   return (
     <>
@@ -30,8 +17,8 @@ const ContactDetails = () => {
         label="Email"
         variant="standard"
         helperText="*Required - This email will be shared with customers"
-        onChange={handleChange}
-        value={contact.email}
+        onChange={f}
+        value={d.email}
         margin="normal"
         fullWidth
       />
@@ -42,8 +29,8 @@ const ContactDetails = () => {
         label="MObile"
         variant="standard"
         helperText="*Required - This email will be shared with customers"
-        onChange={handleChange}
-        value={contact.cell}
+        onChange={f}
+        value={d.cell}
         margin="normal"
         fullWidth
       />

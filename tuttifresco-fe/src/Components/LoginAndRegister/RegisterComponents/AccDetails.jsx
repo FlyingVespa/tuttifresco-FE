@@ -29,32 +29,39 @@ const deliveryDistance = [
   "Less than 10km",
 ];
 
-const AccDetails = ({ f, d }) => {
+const AccDetails = ({
+  v,
+  f,
+  d,
+  handleClickShowPassword,
+  handleMouseDownPassword,
+  handlePasswordChange,
+}) => {
   const dispatch = useDispatch();
   const form = useSelector((s) => s.formBusiness);
 
-  const [values, setValues] = useState({
-    amount: "",
-    password: "",
-    weight: "",
-    weightRange: "",
-    showPassword: false,
-  });
+  // const [values, setValues] = useState({
+  //   amount: "",
+  //   password: "",
+  //   weight: "",
+  //   weightRange: "",
+  //   showPassword: false,
+  // });
 
-  const handlePasswordChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
+  // const handlePasswordChange = (prop) => (event) => {
+  //   setValues({ ...values, [prop]: event.target.value });
+  // };
 
-  const handleClickShowPassword = () => {
-    setValues({
-      ...values,
-      showPassword: !values.showPassword,
-    });
-  };
+  // const handleClickShowPassword = () => {
+  //   setValues({
+  //     ...values,
+  //     showPassword: !values.showPassword,
+  //   });
+  // };
 
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
+  // const handleMouseDownPassword = (event) => {
+  //   event.preventDefault();
+  // };
 
   return (
     <div className="my-5">
@@ -82,14 +89,14 @@ const AccDetails = ({ f, d }) => {
         fullWidth
         helperText="*Required - not shared with public"
       />
-      {/* 
+
       <FormControl variant="standard" fullWidth className="mb-3">
         <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
         <Input
           name="password"
-          id="standard-adornment-password"
-          type={values.showPassword ? "text" : "password"}
-          value={values.password}
+          id="password"
+          type={v.showPassword ? "text" : "password"}
+          value={d.password}
           onChange={handlePasswordChange("password")}
           endAdornment={
             <InputAdornment position="end">
@@ -98,7 +105,7 @@ const AccDetails = ({ f, d }) => {
                 onClick={handleClickShowPassword}
                 onMouseDown={handleMouseDownPassword}
               >
-                {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                {v.showPassword ? <VisibilityOff /> : <Visibility />}
               </IconButton>
             </InputAdornment>
           }
@@ -112,11 +119,11 @@ const AccDetails = ({ f, d }) => {
         variant="standard"
         placeholder="Business Name"
         label="Business Name"
-        value={datas.basic.businesName}
+        value={d.businessName}
         onChange={f}
         fullWidth
         helperText="*Required - not shared with public"
-      /> */}
+      />
       {/* <Row>
         <Col>
           <Autocomplete
